@@ -156,8 +156,8 @@ function battleship() {
 			throw new Error({message: 'La position est invalide'});
 		}
 
-        let boat = this.boats[boat_name];
-        for (let i = 0; i < boat.size; i++) {
+        var boat = this.boats[boat_name];
+        for (var i = 0; i < boat.size; i++) {
             this.grid[boat.coordinatesList[i][0]][boat.coordinatesList[i][1]] = 1;
         }
         boat.isSet = true;
@@ -202,10 +202,10 @@ function battleship() {
 	 * @this {battleship}
 	 */
 	this.sinkBoatIfDestroyed = function(boat_name) {
-		let flag = true;
+		var flag = true;
 		for (coordinates of this.boats[boat_name].coordinatesList) {
-			let x = coordinates[0];
-			let y = coordinates[1];
+			var x = coordinates[0];
+			var y = coordinates[1];
 			if (this.grid[x][y] !== 3) {
 				flag = false;
 				break;
@@ -214,8 +214,8 @@ function battleship() {
 		if (flag) {
 			this.boats[boat_name].sink();
 			for (coordinates of this.boats[boat_name].coordinatesList) {
-				let x = coordinates[0];
-				let y = coordinates[1];
+				var x = coordinates[0];
+				var y = coordinates[1];
 				this.grid[x][y] = 4;
 			}
 		}
@@ -229,8 +229,8 @@ function battleship() {
 	this.sinkEnemyBoatIfDestroyed = function(boat_name, enemyPlayer) {
 		if (enemyPlayer.battleship.boats[boat_name].isSunk) {
 			for (coordinates of enemyPlayer.battleship.boats[boat_name].coordinatesList) {
-				let x = coordinates[0];
-				let y = coordinates[1];
+				var x = coordinates[0];
+				var y = coordinates[1];
 				this.attack_grid[x][y] = 4;
 			}
 		}
@@ -257,8 +257,8 @@ function battleship() {
  * @return {Boolean}
  */
 function isZoneAvailable(coordinates, currentGrid) {
-	let x = coordinates[0];
-	let y = coordinates[1];
+	var x = coordinates[0];
+	var y = coordinates[1];
 
 	for (let i = x-1; i <= x+1; i++) {
 		for (let j = y-1; j <= y+1; j++) {
