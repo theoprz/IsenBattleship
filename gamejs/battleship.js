@@ -1,4 +1,4 @@
-let Boat = require('./boat.js'); // Require boat object
+var Boat = require('./boat.js'); // Require boat object
 
 /** @type {Object}
  * @class battleship
@@ -64,8 +64,8 @@ function battleship() {
 	* @param {tuple} coordinates Attack coordinates
 	*/
 	this.attackEnemy = function(coordinates, enemyPlayer) {
-		let x = coordinates[0];
-		let y = coordinates[1];
+		var x = coordinates[0];
+		var y = coordinates[1];
 		if (this.areAttackCoordinatesTested(x,y)) {
 			console.log('Cette zone a déja été attaquée !!');
 			return false;
@@ -75,8 +75,8 @@ function battleship() {
 			this.attack_grid[x][y] = 3;
 
 			// Find the boat that has been hit
-			let hitBoat = enemyPlayer.battleship.findHitBoat(x, y);
-			// Sink the boat if it was completely destroyed
+			var hitBoat = enemyPlayer.battleship.findHitBoat(x, y);
+			// Sink the boat if it was compvarely destroyed
 			enemyPlayer.battleship.sinkBoatIfDestroyed(hitBoat.name);
 			this.sinkEnemyBoatIfDestroyed(hitBoat.name, enemyPlayer);
 		}
@@ -103,8 +103,8 @@ function battleship() {
 	 * @return {Boolean}
 	 */
 	this.isFleetDestroyed = function() {
-		let flag = true;
-		for (let boat in this.boats) {
+		var flag = true;
+		for (var boat in this.boats) {
 			if (!this.boats[boat].isSunk) {
 				flag = false;
 			}
@@ -131,9 +131,9 @@ function battleship() {
 	 * @return {errors}
 	 */
 	this.positionIsNotValid = function(boat_name) {
-		let boat = this.boats[boat_name];
-		let errors = [];
-		for (let i = 0; i < boat.coordinatesList.length; i++) {
+		var boat = this.boats[boat_name];
+		var errors = [];
+		for (var i = 0; i < boat.coordinatesList.length; i++) {
 			if (!this.isInGrid(boat.coordinatesList[i])) {
 				errors.push(boat.name + ' n\'est pas parfaitement sur la grille !')
 			}
@@ -166,12 +166,12 @@ function battleship() {
 
 	// Random positions for boat if option is selected
 	this.randomSetBoats = function () {
-		for (let boat in this.boats) {
+		for (var boat in this.boats) {
 			while (!this.boats[boat].isSet) {
-				let i = Math.floor(Math.random() * 10);
-				let j = Math.floor(Math.random() * 10);
-				let rnd = Math.floor(Math.random() + 0.5);
-				let dir = "down".repeat(rnd) + "right".repeat(1-rnd);
+				var i = Math.floor(Math.random() * 10);
+				var j = Math.floor(Math.random() * 10);
+				var rnd = Math.floor(Math.random() + 0.5);
+				var dir = "down".repeat(rnd) + "right".repeat(1-rnd);
 				this.boats[boat].setPosition([i, j], dir);
 				this.boats[boat].setCoordinatesList();
 				if (!this.positionIsNotValid(boat)) {
@@ -260,8 +260,8 @@ function isZoneAvailable(coordinates, currentGrid) {
 	var x = coordinates[0];
 	var y = coordinates[1];
 
-	for (let i = x-1; i <= x+1; i++) {
-		for (let j = y-1; j <= y+1; j++) {
+	for (var i = x-1; i <= x+1; i++) {
+		for (var j = y-1; j <= y+1; j++) {
 			if (i>=0 && i<=9 && j>=0 && j<=9) {
 				if (currentGrid[i][j] != 0) {
 					return false;
