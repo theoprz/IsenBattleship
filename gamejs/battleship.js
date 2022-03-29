@@ -116,7 +116,7 @@ function battleship() {
 	 * All boats on grid
 	 * @type {Boolean}
 	 * @this {battleshîp}
-	 * @default
+	 * @default false
 	 */
 	this.areBoatsSet = false;
 
