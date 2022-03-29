@@ -20,7 +20,7 @@ function boat (name, size) {
 
 	/**
 	 * @type {Boolean}
-	 * @default
+	 * @default false
 	 * @this {boat}
 	 */
 	this.isSunk = false;
@@ -35,14 +35,14 @@ function boat (name, size) {
 	/**
 	 * Rotation
 	 * @type {String}
-	 * @default
+	 * @default 'right'
 	 * @this {boat}
 	 */
 	this.direction = 'right';
 
 	/**
 	 * @type {tuple}
-	 * @default
+	 * @default (0,0)
 	 * @this {boat}
 	 */
 	this.coordinates = [0,0];
@@ -50,7 +50,7 @@ function boat (name, size) {
 	/**
 	 * @type {Boolean}
 	 * @this {boat}
-	 * @default
+	 * @default false
 	 */
 	this.isSet = false;
 
@@ -66,7 +66,7 @@ function boat (name, size) {
 
 	/**
 	 * @type {Array}
-	 * @default
+	 * @default (0,0, ... 0)
 	 * @this {boat}
 	 */
 	this.coordinatesList = new Array(this.size).fill([0,0]);

@@ -1,6 +1,6 @@
-let clientServer = function(gameServer, io) {
+var clientServer = function(gameServer, io) {
 
-	let self = this;
+	var self = this;
 
 	self.io = io;
 
@@ -29,10 +29,10 @@ let clientServer = function(gameServer, io) {
 	 * @this {clientServer}
 	 */
 	self.handleMultiplayerInitialization = function(socket) {
-		let username = self.getUsername(socket);
-		let game = self.getUserGame(socket);
-		let player_one = game.player_one;
-		let player_two = game.player_two;
+		var username = self.getUsername(socket);
+		var game = self.getUserGame(socket);
+		var player_one = game.player_one;
+		var player_two = game.player_two;
 
 		self.joinGameRoom(socket);
 
@@ -56,12 +56,12 @@ let clientServer = function(gameServer, io) {
 	 * @this {clientServer}
 	 */
 	self.handleMultiplayerGameConnection = function(socket) {
-		let username = self.getUsername(socket);
+		var username = self.getUsername(socket);
 
-		let game = self.getUserGame(socket);
+		var game = self.getUserGame(socket);
 
 		if (!game.isAvailable()) {
-			let enemyPlayer = self.getEnemyPlayer(socket);
+			var enemyPlayer = self.getEnemyPlayer(socket);
 
 			if (!enemyPlayer.battleship.areBoatsSet) {
 				self.sendWaitForBoatStatus(socket);
@@ -72,7 +72,7 @@ let clientServer = function(gameServer, io) {
 
 			socket.on('attack', function(attackCoordinates) {
 				if (enemyPlayer.battleship.areBoatsSet && gameServer.players[username].isTurn) {
-					let coordinates = [attackCoordinates.row, attackCoordinates.col];
+					var coordinates = [attackCoordinates.row, attackCoordinates.col];
 
 					self.getUserBattleship(socket).attackEnemy(coordinates, enemyPlayer);
 
@@ -119,7 +119,7 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.sendWaitStatus = function(socket) {
-		let status = {
+		var status = {
 			status: 'waiting',
 			message: 'Attente de joueurs pour rejoindre...',
 		}
@@ -130,11 +130,11 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.sendConnectStatus = function(socket) {
-		let game = self.getUserGame(socket);
-		let player_one = game.player_one;
-		let player_two = game.player_two;
+		var game = self.getUserGame(socket);
+		var player_one = game.player_one;
+		var player_two = game.player_two;
 
-		let status = {
+		var status = {
 			status: 'connected',
 			message: "Le joueur " + player_two.username + " est connecté ! Vous êtes prêts à lancer la partie !",
 		}
@@ -148,7 +148,7 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.joinGameRoom = function(socket) {
-		let game = self.getUserGame(socket);
+		var game = self.getUserGame(socket);
 		socket.join(game.name);
 	}
 
@@ -163,8 +163,8 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.sendSetBoatStatus = function(socket) {
-		let game = self.getUserGame(socket);
-		let response = {
+		var game = self.getUserGame(socket);
+		var response = {
 			redirect: '/setBoats'
 		};
 		self.io.sockets.in(game.name).emit('setBoats', response)
@@ -175,8 +175,8 @@ let clientServer = function(gameServer, io) {
 	 * @return {player}
 	 */
 	self.getEnemyPlayer = function(socket) {
-		let game = self.getUserGame(socket);
-		let username = self.getUsername(socket);
+		var game = self.getUserGame(socket);
+		var username = self.getUsername(socket);
 		if (game.player_one.username === username) {
 			return game.player_two;
 		} else {
@@ -188,9 +188,9 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.sendWaitForBoatStatus = function(socket) {
-		let username = self.getUsername(socket);
-		let enemyPlayer = self.getEnemyPlayer(socket);
-		let response = {
+		var username = self.getUsername(socket);
+		var enemyPlayer = self.getEnemyPlayer(socket);
+		var response = {
 			status : 'waiting',
 			message: 'En attente de ' + enemyPlayer.username + " pour le placement de ses bateaux",
 		}
@@ -201,7 +201,7 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.sendStartGameStatus = function(socket) {
-		let response = {
+		var response = {
 				message: 'C\'est à vous de jouer',
 			}
 		socket.broadcast.to(self.getEnemyPlayer(socket).socketId).emit('wait', response);
@@ -213,7 +213,7 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.sendGameOverStatus = function(socket) {
-		let response = {
+		var response = {
 			message: 'Vous avez perdu ! Vous aurez plus de chance la prochaine fois !',
 			battleship: self.getEnemyPlayer(socket).battleship
 		};
@@ -246,7 +246,7 @@ let clientServer = function(gameServer, io) {
 	 * @param  {socket} socket
 	 */
 	self.handleDisconnect = function(socket) {
-		let response = {
+		var response = {
 			message: 'Vous n\'êtes pas connecté',
 			redirect: '/'
 		}

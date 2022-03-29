@@ -76,7 +76,7 @@ function battleship() {
 
 			// Find the boat that has been hit
 			var hitBoat = enemyPlayer.battleship.findHitBoat(x, y);
-			// Sink the boat if it was compvarely destroyed
+			// Sink the boat if it was completly destroyed
 			enemyPlayer.battleship.sinkBoatIfDestroyed(hitBoat.name);
 			this.sinkEnemyBoatIfDestroyed(hitBoat.name, enemyPlayer);
 		}
